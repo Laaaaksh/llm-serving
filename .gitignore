@@ -1,0 +1,23 @@
+# Model weights, build artifacts, and virtualenvs the labs create locally -
+# never commit these, they're multi-hundred-MB to multi-GB and licensed by
+# their own model cards, not this repo.
+code/**/models/
+code/**/*.gguf
+code/**/llama.cpp/
+code/**/.venv/
+code/**/venv/
+code/**/build/
+code/**/*.o
+code/**/*.out
+code/**/wikitext-2-raw/
+code/**/wikitext/
+code/**/server.pid
+code/**/server.log
+
+# Editor / OS cruft
+.DS_Store
+*.swp
+.vscode/
+.idea/
+__pycache__/
+*.pyc

@@ -1,0 +1,40 @@
+name: Bug report
+description: Something in a sample or the curriculum is wrong
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a problem.
+  - type: input
+    id: location
+    attributes:
+      label: Where
+      description: File or curriculum stage this is about, e.g. `code/03-continuous-batching/scheduler.py` or `curriculum/04-quantization.md`.
+      placeholder: "code/03-continuous-batching/scheduler.py"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What's wrong?
+      description: A runtime error, a wrong claim, a dead link, an incorrect measured number, etc. Include the exact error text if there is one.
+      placeholder: |
+        1. Ran `python3 scheduler.py` in code/03-continuous-batching
+        2. Got this error: ...
+    validations:
+      required: true
+  - type: input
+    id: python-version
+    attributes:
+      label: Python version
+      description: Output of `python3 --version`. Only needed for the Python labs.
+    validations:
+      required: false
+  - type: input
+    id: env
+    attributes:
+      label: OS / hardware / llama.cpp commit
+      description: For the GGUF quantization or serving labs — OS, chip (`sysctl -n machdep.cpu.brand_string` on macOS), and the llama.cpp commit hash you built.
+    validations:
+      required: false
