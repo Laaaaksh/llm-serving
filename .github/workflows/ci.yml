@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Superseded runs (new commit pushed to the same branch/PR) are pure waste;
+# cancelling them early keeps the queue free. CI publishes nothing, so
+# cancellation is always safe here.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run-python-labs:
+    name: Run pure-Python labs (Stages 1, 2, 3, 5's math)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        script:
+          - code/01-token-cost-model/cost_model.py
+          - code/02-kv-cache-paging/kv_cache_sim.py
+          - code/03-continuous-batching/scheduler_sim.py
+          - code/05-quant-memory-calculator/memory_calculator.py
+          - code/06-speculative-decoding/acceptance_rate_sim.py
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run and check for CHECKPOINT PASSED
+        run: |
+          set -e
+          python3 ${{ matrix.script }} | tee output.txt
+          grep -q "CHECKPOINT PASSED" output.txt
+
+  build-llama-cpp:
+    name: Build llama.cpp (CPU, no GPU required)
+    runs-on: ubuntu-latest
+    # This proves the toolchain instructions in code/04, 06, 07's READMEs
+    # actually produce a working build. It does NOT download models,
+    # quantize anything, or run a benchmark - those need real disk space,
+    # network access to Hugging Face, and minutes of wall-clock time that
+    # don't belong in a per-PR CI job. The measured numbers in those
+    # samples' READMEs come from a real, one-time, dated run - see each
+    # README's "verified against" line - not from this job.
+    timeout-minutes: 15
+    steps:
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake build-essential
+
+      - name: Clone llama.cpp at the pinned commit
+        run: |
+          git clone https://github.com/ggml-org/llama.cpp.git
+          cd llama.cpp
+          git checkout "$(cat ../code/04-gguf-quantize-bench/LLAMA_CPP_COMMIT)"
+
+      - name: Build (CPU only)
+        run: |
+          cd llama.cpp
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release -j "$(nproc)" --target llama-quantize llama-cli llama-bench
