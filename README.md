@@ -6,7 +6,7 @@
 continuous batching, KV-cache paging, and which quantization format to
 ship" - with runnable code at every step.**
 
-[![CI](https://github.com/attentionfs/llm-serving/actions/workflows/ci.yml/badge.svg)](https://github.com/attentionfs/llm-serving/actions/workflows/ci.yml)
+[![CI](https://github.com/Laaaaksh/llm-serving/actions/workflows/ci.yml/badge.svg)](https://github.com/Laaaaksh/llm-serving/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue?logo=python&logoColor=white)](curriculum/00-environment.md)
 
@@ -50,7 +50,7 @@ or writing GPU kernels by hand. It doesn't cover parameter-efficient
 fine-tuning (LoRA/QLoRA/DPO - see
 [`huggingface/smol-course`](https://github.com/huggingface/smol-course) for
 that), and it doesn't teach CUDA kernel programming (see this repo's sibling,
-[`cuda-engineering`](https://github.com/attentionfs/cuda-engineering), for
+[`cuda-engineering`](https://github.com/Laaaaksh/cuda-engineering), for
 that). [Stage 6](curriculum/06-choosing-an-engine.md) covers multi-GPU
 serving and disaggregated prefill/decode as a decision-guide topic, but
 this repo does not have the hardware to run either.

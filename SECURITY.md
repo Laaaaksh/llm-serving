@@ -36,7 +36,7 @@ instead):
 
 Use GitHub's private vulnerability reporting:
 
-> https://github.com/attentionfs/llm-serving/security/advisories/new
+> https://github.com/Laaaaksh/llm-serving/security/advisories/new
 
 That reaches the maintainer privately so any real issue can be fixed before
 it's discussed in public.

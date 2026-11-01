@@ -27,7 +27,7 @@ API or chat interface enough to have a rough sense of what "prompt" and
 "completion" mean. You do **not** need prior GPU programming, CUDA, or
 distributed-systems experience - this curriculum is about the serving
 system's behavior, not about writing kernels. If you want that layer too,
-see [`github.com/attentionfs/cuda-engineering`](https://github.com/attentionfs/cuda-engineering),
+see [`github.com/Laaaaksh/cuda-engineering`](https://github.com/Laaaaksh/cuda-engineering),
 a sibling repo in this series.
 
 ## Read this before Stage 1: what hardware you actually need
